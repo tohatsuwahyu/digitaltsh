@@ -10,12 +10,13 @@
     
     <style>
         :root {
-            --primary-blue: #2B4C9B; /* Biru asli TSH */
-            --bg-main: #F4F7F9; /* Putih satin awan */
-            --bg-secondary: #FFFFFF; /* Putih murni untuk kartu */
-            --accent-silver: #D1D8E0; /* Perak batu taman */
-            --text-main: #2C3E50; /* Hitam arang tajam untuk keterbacaan */
-            --text-muted: #647687; /* Abu-abu elegan untuk sub-teks */
+            --primary-blue: #2B4C9B; 
+            --primary-dark: #162a5c;
+            --bg-main: #F4F7F9; 
+            --bg-secondary: #FFFFFF; 
+            --accent-silver: #D1D8E0; 
+            --text-main: #2C3E50; 
+            --text-muted: #647687; 
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -29,7 +30,7 @@
             height: 100vh;
         }
 
-        /* 🌌 AMBIENT BACKGROUND (Cerah & Bernapas) */
+        /* 🌌 AMBIENT BACKGROUND */
         .ambient-bg {
             position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
             background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(234,240,246,1) 80%);
@@ -41,24 +42,34 @@
             100% { transform: scale(1.1); }
         }
 
-        /* ▦ GRID PRESISI JEPANG (Halus) */
+        /* ▦ GRID PRESISI */
         .grid-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
             background-image: 
-                linear-gradient(rgba(43, 76, 155, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(43, 76, 155, 0.03) 1px, transparent 1px);
+                linear-gradient(rgba(43, 76, 155, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(43, 76, 155, 0.04) 1px, transparent 1px);
             background-size: 40px 40px;
         }
 
-        /* 🕒 LIVE CLOCK WIDGET (Tema Terang) */
+        /* 🕒 GLASSMORPHISM CLOCK WIDGET (EXPERT TOUCH) */
         .live-clock-widget {
             position: absolute; top: 40px; right: 50px; z-index: 100;
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 15px 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid rgba(255,255,255,0.8);
             text-align: right;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
         }
-        .time-display { font-size: 2.5rem; font-weight: 300; letter-spacing: 0.05em; font-family: 'Helvetica Neue', sans-serif; color: var(--primary-blue);}
-        .date-display { font-size: 1rem; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase;}
+        .time-display { font-size: 2.2rem; font-weight: 500; letter-spacing: 0.05em; font-family: 'Helvetica Neue', sans-serif; color: var(--primary-blue); line-height: 1;}
+        .date-display { font-size: 0.9rem; font-weight: 700; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 5px;}
 
-        /* ⏱️ CINEMATIC PROGRESS BAR */
+        /* ⏱️ PROGRESS BAR */
         .progress-container {
             position: absolute; bottom: 0; left: 0; width: 100%; height: 6px;
             background: rgba(0,0,0,0.05); z-index: 100;
@@ -68,7 +79,7 @@
             box-shadow: 0 0 10px rgba(43,76,155,0.4);
         }
 
-        /* スライド共通 */
+        /* スライド共通 (GLOBAL SLIDES) */
         .slide {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             opacity: 0; visibility: hidden;
@@ -78,16 +89,36 @@
         }
         .slide.active { opacity: 1; visibility: visible; transform: scale(1); }
 
-        /* アニメーション */
         .fade-up { opacity: 0; transform: translateY(30px); transition: all 1.2s cubic-bezier(0.2, 0.8, 0.2, 1); }
         .slide.active .fade-up { opacity: 1; transform: translateY(0); }
         .slide.active .delay-1 { transition-delay: 0.4s; }
         .slide.active .delay-2 { transition-delay: 0.8s; }
 
-        /* スライド1: オープニング */
-        .logo-img { width: 450px; display: block; filter: drop-shadow(0 15px 25px rgba(0,0,0,0.1)); margin-bottom: 30px;}
-        .company-name { font-size: 3.5rem; font-weight: 700; letter-spacing: 0.2em; color: var(--text-main); }
-        .company-name-en { font-size: 1.4rem; color: var(--text-muted); letter-spacing: 0.3em; margin-top: 15px; text-align: center;}
+        /* スライド1: オープニング (PERFECT CENTERING FIX) */
+        #slide1 {
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+        }
+        .logo-img { 
+            width: 450px; 
+            max-width: 80vw;
+            display: block; 
+            margin: 0 auto 40px auto; /* PERFECT CENTER FIX */
+            filter: drop-shadow(0 20px 30px rgba(43, 76, 155, 0.15));
+            animation: levitate 6s ease-in-out infinite; /* EXPERT TOUCH: Levitation */
+        }
+        @keyframes levitate {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        .company-name { 
+            font-size: 3.5rem; font-weight: 700; letter-spacing: 0.2em; 
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent; /* EXPERT TOUCH: Text Gradient */
+            margin-bottom: 5px; text-align: center;
+        }
+        .company-name-en { font-size: 1.4rem; color: var(--text-muted); letter-spacing: 0.3em; margin-top: 10px; text-align: center; font-weight: 500;}
 
         /* スライド2: 会社概要 */
         .profile-container { 
@@ -116,10 +147,10 @@
             box-shadow: 0 15px 35px rgba(0,0,0,0.04);
         }
         .product-img-box { flex: 1; overflow: hidden; background-color: #F8F9FA; }
-        .img-spalcon { background-image: url('./img_spalcon.jpeg'); }
-        .img-shuttle { background-image: url('./img_shuttle.jpeg'); }
+        .img-spalcon { background-image: url('./img_spalcon.jpg'); }
+        .img-shuttle { background-image: url('./img_shuttle.jpg'); }
         .img-wingbend { background-image: url('./img_wingbend.jpg'); }
-        .img-screw { background-image: url('./img_screw.jpeg'); }
+        .img-screw { background-image: url('./img_screw.jpg'); }
         .product-card-img {
             width: 100%; height: 100%; background-size: cover; background-position: center;
             transform: scale(1); transition: transform 12s ease-out;
@@ -130,7 +161,7 @@
         .product-name span { font-size: 1rem; font-weight: 500; color: var(--text-muted); display: block; margin-top: 5px; }
         .product-features { font-size: 1.1rem; color: var(--text-main); line-height: 1.6; }
 
-        /* スライド4: クロージング & 📱 QR CODE */
+        /* スライド4: クロージング & 📱 QR CODE SCANNER */
         .closing-container { 
             display: flex; align-items: center; justify-content: center; gap: 100px; text-align: left; 
             background: var(--bg-secondary); padding: 60px 100px; border-radius: 20px;
@@ -144,10 +175,29 @@
         .qr-box {
             display: flex; flex-direction: column; align-items: center;
         }
-        .qr-image {
-            width: 200px; height: 200px; margin-bottom: 15px;
-            border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        .qr-image-wrapper {
+            position: relative;
+            margin-bottom: 15px;
+            border-radius: 12px; 
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
             border: 5px solid white;
+            overflow: hidden;
+        }
+        .qr-image {
+            width: 220px; height: 220px; display: block;
+        }
+        /* EXPERT TOUCH: Laser Scan Animation over QR */
+        .qr-scan-line {
+            position: absolute; top: 0; left: 0; width: 100%; height: 3px;
+            background: rgba(43, 76, 155, 0.8);
+            box-shadow: 0 0 15px 5px rgba(43, 76, 155, 0.4);
+            animation: scan 2.5s ease-in-out infinite alternate;
+        }
+        @keyframes scan {
+            0% { top: 5%; opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { top: 95%; opacity: 0; }
         }
         .qr-text { font-size: 1.2rem; font-weight: 700; color: var(--primary-blue); letter-spacing: 0.1em; background: rgba(43, 76, 155, 0.05); padding: 8px 20px; border-radius: 30px;}
 
@@ -164,7 +214,7 @@
     </div>
 
     <section class="slide" id="slide1">
-        <div class="fade-up" style="text-align: center;">
+        <div class="fade-up" style="width: 100%; text-align: center;">
             <img src="./tsh.png" alt="TSH Logo" class="logo-img">
             <h1 class="company-name fade-up delay-1">東京精密発條株式会社</h1>
             <p class="company-name-en fade-up delay-2">Tokyo Seimitsu Hatsujou Co., Ltd.</p>
@@ -236,7 +286,10 @@
                 </div>
             </div>
             <div class="qr-box fade-up delay-2">
-                <img src="./tohatsu.png" alt="QR Code to-hatsu.co.jp" class="qr-image">
+                <div class="qr-image-wrapper">
+                    <img src="./tohatsu.png" alt="QR Code to-hatsu.co.jp" class="qr-image">
+                    <div class="qr-scan-line"></div>
+                </div>
                 <div class="qr-text">Websiteにアクセス</div>
             </div>
         </div>
@@ -252,7 +305,7 @@
             const progressBar = document.getElementById('progressBar');
             let currentSlideIndex = 0;
 
-            const slideDurations = [6000, 10000, 12000, 8000]; // Waktu slide terakhir ditambah untuk scan QR
+            const slideDurations = [6000, 10000, 12000, 8000];
 
             function showNextSlide() {
                 slides[currentSlideIndex].classList.remove('active');
@@ -263,7 +316,7 @@
                 progressBar.style.transition = 'none'; 
                 progressBar.style.width = '0%';
                 
-                void progressBar.offsetWidth; // Paksa reflow
+                void progressBar.offsetWidth;
                 
                 progressBar.style.transition = `width ${duration}ms linear`;
                 progressBar.style.width = '100%'; 
