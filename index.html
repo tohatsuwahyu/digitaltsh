@@ -10,151 +10,126 @@
     
     <style>
         :root {
-            --primary-blue: #2B4C9B; /* ロゴに合わせたインダストリアルブルー */
-            --bg-black: #121212;
+            --primary-blue: #2B4C9B;
+            --bg-black: #0a0f1a;
             --pure-white: #FFFFFF;
             --silver: #E4E4E4;
             --text-main: #FFFFFF;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Noto Sans JP', sans-serif;
             background-color: var(--bg-black);
             color: var(--text-main);
-            overflow: hidden; /* スクロールバーを隠す */
+            overflow: hidden;
             width: 100vw;
             height: 100vh;
         }
 
-        /* スライドの共通設定 */
+        /* スライド共通 */
         .slide {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            visibility: hidden;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0; visibility: hidden;
             transition: opacity 1.5s ease-in-out, visibility 1.5s ease-in-out;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
         }
+        .slide.active { opacity: 1; visibility: visible; }
 
-        .slide.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        /* 背景のアニメーション効果 */
-        .bg-pan {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 110%;
-            height: 110%;
-            z-index: -1;
-            background-size: cover;
-            background-position: center;
-            animation: panBg 20s linear infinite alternate;
-            filter: brightness(0.4);
-        }
-
-        @keyframes panBg {
-            0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(-2%, -2%) scale(1.05); }
-        }
-
-        /* アニメーション要素 */
-        .fade-up {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 1s ease-out;
-        }
-
-        .slide.active .fade-up {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .slide.active .delay-1 { transition-delay: 0.5s; }
-        .slide.active .delay-2 { transition-delay: 1.0s; }
-        .slide.active .delay-3 { transition-delay: 1.5s; }
+        /* アニメーション */
+        .fade-up { opacity: 0; transform: translateY(30px); transition: all 1.2s cubic-bezier(0.2, 0.8, 0.2, 1); }
+        .slide.active .fade-up { opacity: 1; transform: translateY(0); }
+        .slide.active .delay-1 { transition-delay: 0.4s; }
+        .slide.active .delay-2 { transition-delay: 0.8s; }
 
         /* スライド1: オープニング */
-        #slide1 { background: radial-gradient(circle, #1a2a4f 0%, var(--bg-black) 80%); }
-        .logo-container { text-align: center; }
-        .logo-img { width: 400px; margin-bottom: 20px; filter: drop-shadow(0 0 20px rgba(255,255,255,0.2)); }
-        .company-name { font-size: 3rem; font-weight: 700; letter-spacing: 0.2em; }
-        .company-name-en { font-size: 1.2rem; color: var(--silver); letter-spacing: 0.3em; margin-top: 10px; }
+        #slide1 { background: radial-gradient(circle, #16264c 0%, var(--bg-black) 100%); }
+        .logo-wrapper {
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 40px 60px;
+            border-radius: 16px; /* 角丸でエレガントなパネル風に */
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,255,255,0.5);
+            margin-bottom: 40px;
+            display: inline-block;
+            backdrop-filter: blur(10px);
+        }
+        .logo-img { width: 350px; display: block; }
+        .company-name { font-size: 3.5rem; font-weight: 700; letter-spacing: 0.2em; text-shadow: 0 4px 20px rgba(0,0,0,0.5); }
+        .company-name-en { font-size: 1.4rem; color: var(--silver); letter-spacing: 0.3em; margin-top: 15px; text-align: center;}
 
-        /* スライド2: 会社概要 */
+        /* スライド2: 会社概要 (画像付き) */
         #slide2 { background-color: var(--pure-white); color: #333; }
-        .grid-bg {
-            position: absolute; width: 100%; height: 100%; z-index: -1;
-            background-image: linear-gradient(#e0e0e0 1px, transparent 1px), linear-gradient(90deg, #e0e0e0 1px, transparent 1px);
-            background-size: 40px 40px;
-            opacity: 0.5;
+        .profile-container { 
+            display: flex; width: 85%; max-width: 1400px; height: 75%; 
+            background: #fff; box-shadow: 0 30px 60px rgba(0,0,0,0.15); 
+            border-radius: 12px; overflow: hidden;
         }
-        .profile-container { display: flex; width: 80%; max-width: 1200px; height: 70%; background: rgba(255,255,255,0.9); box-shadow: 0 20px 50px rgba(0,0,0,0.1); border-left: 8px solid var(--primary-blue); }
-        .profile-content { flex: 1; padding: 60px; display: flex; flex-direction: column; justify-content: center; }
-        .section-title { font-size: 2.5rem; color: var(--primary-blue); font-weight: 700; margin-bottom: 30px; border-bottom: 2px solid var(--primary-blue); padding-bottom: 10px; display: inline-block;}
-        .profile-list { list-style: none; font-size: 1.5rem; line-height: 2.5; }
-        .profile-list span { font-weight: 700; display: inline-block; width: 150px; color: var(--primary-blue); }
-        .profile-image { flex: 1; background: linear-gradient(45deg, var(--primary-blue), #1a2a4f); }
-
-        /* スライド3: 製品紹介 */
-        #slide3 { background: linear-gradient(135deg, var(--primary-blue) 0%, #0d1b2a 100%); }
-        .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; width: 80%; max-width: 1200px; margin-top: 40px; }
-        .product-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); padding: 30px; border-radius: 8px; backdrop-filter: blur(10px); }
-        .product-name { font-size: 1.8rem; font-weight: 700; margin-bottom: 15px; color: var(--pure-white); }
-        .product-features { font-size: 1.1rem; color: var(--silver); }
-        .feature-tags { margin-top: 30px; display: flex; gap: 20px; justify-content: center; }
-        .tag { background: rgba(255,255,255,0.1); padding: 10px 20px; border-radius: 30px; border: 1px solid var(--silver); font-weight: 500; letter-spacing: 0.1em; }
-
-        /* スライド4: テクノロジーと哲学 */
-        #slide4 { background-color: var(--bg-black); }
-        .tech-lines {
-            position: absolute; width: 100%; height: 1px; background: rgba(43, 76, 155, 0.5);
-            box-shadow: 0 0 10px var(--primary-blue); top: 50%; transform: translateY(-50%);
-            animation: scanline 4s linear infinite;
-        }
-        @keyframes scanline {
-            0% { top: 10%; opacity: 0; }
-            50% { opacity: 1; }
-            100% { top: 90%; opacity: 0; }
-        }
-        .philosophy-text { font-size: 3.5rem; font-weight: 300; text-align: center; letter-spacing: 0.1em; text-shadow: 0 0 20px rgba(255,255,255,0.3); }
-        .philosophy-sub { font-size: 1.5rem; color: var(--primary-blue); margin-top: 20px; font-weight: 500; letter-spacing: 0.2em;}
-
-        /* スライド5: クロージング */
-        #slide5 { background: var(--bg-black); text-align: center; }
-        .closing-title { font-size: 2.8rem; font-weight: 700; margin-bottom: 40px; }
-        .line-separator { width: 100px; height: 2px; background: var(--silver); margin: 0 auto 40px auto; }
-        .contact-info { font-size: 1.4rem; color: var(--silver); line-height: 2; margin-bottom: 40px; }
-        .website-url { font-size: 2rem; color: var(--primary-blue); font-weight: 700; text-decoration: none; }
+        .profile-content { flex: 1.2; padding: 70px; display: flex; flex-direction: column; justify-content: center; }
+        .section-title { font-size: 2.8rem; color: var(--primary-blue); font-weight: 700; margin-bottom: 40px; }
+        .profile-list { list-style: none; font-size: 1.6rem; line-height: 2.4; }
+        .profile-list span { font-weight: 700; display: inline-block; width: 160px; color: var(--primary-blue); }
         
+        /* 工場・社屋の画像エリア */
+        .profile-image-wrapper { flex: 1; overflow: hidden; position: relative; background-color: #eee; }
+        .profile-image {
+            width: 100%; height: 100%;
+            background-image: url('./img_factory.jpg'); /* 工場の画像を指定 */
+            background-size: cover; background-position: center;
+            transform: scale(1.1); transition: transform 10s linear;
+        }
+        .slide.active .profile-image { transform: scale(1); } /* ズームアウトエフェクト */
+
+        /* スライド3: 製品紹介 (画像付きグリッド) */
+        #slide3 { background: linear-gradient(135deg, #0d1b2a 0%, #1a2a4f 100%); }
+        .product-section-title { font-size: 2.8rem; color: #fff; font-weight: 700; margin-bottom: 30px; letter-spacing: 0.1em; }
+        .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; width: 90%; max-width: 1400px; }
+        
+        .product-card { 
+            background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); 
+            border-radius: 12px; overflow: hidden; display: flex; height: 240px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .product-img-box { flex: 1; overflow: hidden; background-color: #222; }
+        
+        /* 各製品の画像指定 */
+        .img-spalcon { background-image: url('./img_spalcon.jpg'); }
+        .img-shuttle { background-image: url('./img_shuttle.jpg'); }
+        .img-wingbend { background-image: url('./img_wingbend.jpg'); }
+        .img-screw { background-image: url('./img_screw.jpg'); }
+        
+        .product-card-img {
+            width: 100%; height: 100%; background-size: cover; background-position: center;
+            transform: scale(1); transition: transform 12s ease-out;
+        }
+        .slide.active .product-card-img { transform: scale(1.1); } /* ズームインエフェクト */
+
+        .product-info { flex: 1.2; padding: 30px; display: flex; flex-direction: column; justify-content: center; }
+        .product-name { font-size: 1.8rem; font-weight: 700; color: var(--pure-white); margin-bottom: 10px; line-height: 1.2;}
+        .product-name span { font-size: 1rem; font-weight: normal; color: #aaa; display: block; margin-top: 5px; }
+        .product-features { font-size: 1.1rem; color: var(--silver); line-height: 1.6; }
+
+        /* スライド4: クロージング */
+        #slide4 { background: var(--bg-black); text-align: center; }
+        .closing-title { font-size: 3rem; font-weight: 700; margin-bottom: 40px; letter-spacing: 0.05em;}
+        .line-separator { width: 150px; height: 2px; background: var(--primary-blue); margin: 0 auto 40px auto; }
+        .contact-info { font-size: 1.6rem; color: var(--silver); line-height: 2; margin-bottom: 40px; }
+        .website-url { font-size: 2.5rem; color: var(--pure-white); font-weight: 700; text-decoration: none; letter-spacing: 0.1em; }
     </style>
 </head>
 <body>
 
     <section class="slide" id="slide1">
-        <div class="logo-container fade-up">
-            <img src="./tsh.png" alt="TSH Logo" class="logo-img">
+        <div class="fade-up" style="text-align: center;">
+            <div class="logo-wrapper">
+                <img src="./tsh.png" alt="TSH Logo" class="logo-img">
+            </div>
             <h1 class="company-name fade-up delay-1">東京精密発條株式会社</h1>
             <p class="company-name-en fade-up delay-2">Tokyo Seimitsu Hatsujou Co., Ltd.</p>
         </div>
     </section>
 
     <section class="slide" id="slide2">
-        <div class="grid-bg"></div>
         <div class="profile-container fade-up">
             <div class="profile-content">
                 <h2 class="section-title">会社概要</h2>
@@ -165,52 +140,57 @@
                     <li><span>事業内容</span> 工作機械周辺機器・曲げ型の開発・製造</li>
                 </ul>
             </div>
-            <div class="profile-image fade-up delay-2">
-                </div>
+            <div class="profile-image-wrapper">
+                <div class="profile-image"></div>
+            </div>
         </div>
     </section>
 
     <section class="slide" id="slide3">
-        <h2 class="section-title" style="color: white; border-color: white;">主要製品・技術</h2>
-        <div class="product-grid fade-up delay-1">
-            <div class="product-card">
-                <div class="product-name">SPALCON<br><span style="font-size: 1rem; font-weight: normal;">スパイラルコンベア スパルコン</span></div>
-                <div class="product-features">切粉の搬送をスムーズかつ確実に行う高耐久コンベアシステム。</div>
+        <h2 class="product-section-title fade-up">主要製品・技術</h2>
+        <div class="product-grid">
+            
+            <div class="product-card fade-up delay-1">
+                <div class="product-img-box"><div class="product-card-img img-spalcon"></div></div>
+                <div class="product-info">
+                    <div class="product-name">SPALCON<span>スパイラルコンベア スパルコン</span></div>
+                    <div class="product-features">切粉の搬送をスムーズかつ確実に行う高耐久コンベアシステム。</div>
+                </div>
             </div>
-            <div class="product-card">
-                <div class="product-name">Shuttle Guard<br><span style="font-size: 1rem; font-weight: normal;">シャトルガード</span></div>
-                <div class="product-features">機械の摺動面を確実に保護する高精度テレスコピックカバー。</div>
+
+            <div class="product-card fade-up delay-1">
+                <div class="product-img-box"><div class="product-card-img img-shuttle"></div></div>
+                <div class="product-info">
+                    <div class="product-name">Shuttle Guard<span>シャトルガード</span></div>
+                    <div class="product-features">機械の摺動面を確実に保護する高精度テレスコピックカバー。</div>
+                </div>
             </div>
-            <div class="product-card">
-                <div class="product-name">Wing Bend / Plus<br><span style="font-size: 1rem; font-weight: normal;">ウイングベンド / プラス</span></div>
-                <div class="product-features">傷をつけずに精密な曲げ加工を実現する画期的なプレス用金型。</div>
+
+            <div class="product-card fade-up delay-2">
+                <div class="product-img-box"><div class="product-card-img img-wingbend"></div></div>
+                <div class="product-info">
+                    <div class="product-name">Wing Bend / Plus<span>ウイングベンド / プラス</span></div>
+                    <div class="product-features">傷をつけずに精密な曲げ加工を実現する画期的なプレス用金型。</div>
+                </div>
             </div>
-            <div class="product-card">
-                <div class="product-name">Screw Cover & Post Cover<br><span style="font-size: 1rem; font-weight: normal;">スクリューカバー / ポストカバー</span></div>
-                <div class="product-features">ボールねじやシャフトを粉塵から守るスプリング式保護カバー。</div>
+
+            <div class="product-card fade-up delay-2">
+                <div class="product-img-box"><div class="product-card-img img-screw"></div></div>
+                <div class="product-info">
+                    <div class="product-name">Screw & Post Cover<span>スクリュー/ポストカバー</span></div>
+                    <div class="product-features">ボールねじやシャフトを粉塵から守るスプリング式保護カバー。</div>
+                </div>
             </div>
-        </div>
-        <div class="feature-tags fade-up delay-2">
-            <span class="tag">耐久性 (Durability)</span>
-            <span class="tag">滑らかな可動 (Smooth Movement)</span>
-            <span class="tag">高精度 (High Precision)</span>
+
         </div>
     </section>
 
     <section class="slide" id="slide4">
-        <div class="tech-lines"></div>
-        <div class="fade-up">
-            <h2 class="philosophy-text">Crafted with<br>Japanese Monozukuri Spirit</h2>
-            <p class="philosophy-sub fade-up delay-1">妥協なき精度。受け継がれる日本のモノづくり精神。</p>
-        </div>
-    </section>
-
-    <section class="slide" id="slide5">
         <div class="fade-up">
             <h2 class="closing-title">Engineering Reliability Since 1930</h2>
             <div class="line-separator delay-1"></div>
             <div class="contact-info fade-up delay-1">
-                神奈川県横浜市鶴見区<br>
+                神奈川県横浜市都筑区<br>
                 Yokohama, Kanagawa, Japan
             </div>
             <div class="fade-up delay-2">
@@ -224,28 +204,18 @@
             const slides = document.querySelectorAll('.slide');
             let currentSlideIndex = 0;
 
-            // 各スライドの表示秒数（ミリ秒）
-            // Slide 1: 5s, Slide 2: 8s, Slide 3: 10s, Slide 4: 7s, Slide 5: 6s
-            const slideDurations = [5000, 8000, 10000, 7000, 6000];
+            // 各スライドの表示秒数（ミリ秒）: ゆったり見せるために時間を少し長くしました
+            // オープニング(6秒) -> 会社概要(10秒) -> 製品紹介(12秒) -> クロージング(7秒)
+            const slideDurations = [6000, 10000, 12000, 7000];
 
             function showNextSlide() {
-                // 現在のスライドを非表示
                 slides[currentSlideIndex].classList.remove('active');
-
-                // 次のスライドのインデックスを計算
                 currentSlideIndex = (currentSlideIndex + 1) % slides.length;
-
-                // 次のスライドを表示
                 slides[currentSlideIndex].classList.add('active');
-
-                // 次のスライドの待機時間を設定して再帰呼び出し
                 setTimeout(showNextSlide, slideDurations[currentSlideIndex]);
             }
 
-            // 初期化：最初のスライドを表示
             slides[currentSlideIndex].classList.add('active');
-            
-            // 最初のアニメーションタイマーを開始
             setTimeout(showNextSlide, slideDurations[currentSlideIndex]);
         });
     </script>
