@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>東京精密発條株式会社 - Digital Signage Premium (Light Theme)</title>
+    <title>東京精密発條株式会社 - Digital Signage Premium (Masterpiece)</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -35,7 +35,7 @@
             position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
             background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(234,240,246,1) 80%);
             animation: breathe 15s ease-in-out infinite alternate;
-            z-index: -1; pointer-events: none;
+            z-index: -2; pointer-events: none;
         }
         @keyframes breathe {
             0% { transform: scale(0.9); }
@@ -51,23 +51,39 @@
             background-size: 40px 40px;
         }
 
-        /* 🕒 GLASSMORPHISM CLOCK WIDGET (EXPERT TOUCH) */
+        /* ✨ ZEN DUST PARTICLES (NEW EXPERT TOUCH) */
+        .particles-container {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            overflow: hidden; z-index: 0; pointer-events: none;
+        }
+        .particle {
+            position: absolute; border-radius: 50%;
+            background: rgba(43, 76, 155, 0.15);
+            filter: blur(5px);
+            animation: floatUp linear infinite;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(110vh) scale(0.5); opacity: 0; }
+            20% { opacity: 1; }
+            80% { opacity: 1; }
+            100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+        }
+
+        /* 🕒 SMART GLASSMORPHISM WIDGET (NEW GREETING ADDED) */
         .live-clock-widget {
             position: absolute; top: 40px; right: 50px; z-index: 100;
-            background: rgba(255, 255, 255, 0.65);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
             padding: 15px 30px;
             border-radius: 16px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            border: 1px solid rgba(255,255,255,0.8);
-            text-align: right;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
+            border: 1px solid rgba(255,255,255,0.9);
+            text-align: right; display: flex; flex-direction: column; align-items: flex-end;
         }
-        .time-display { font-size: 2.2rem; font-weight: 500; letter-spacing: 0.05em; font-family: 'Helvetica Neue', sans-serif; color: var(--primary-blue); line-height: 1;}
-        .date-display { font-size: 0.9rem; font-weight: 700; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 5px;}
+        .greeting-text { font-size: 1rem; font-weight: 700; color: var(--primary-blue); margin-bottom: 5px; letter-spacing: 0.1em; }
+        .time-display { font-size: 2.2rem; font-weight: 500; letter-spacing: 0.05em; font-family: 'Helvetica Neue', sans-serif; color: var(--text-main); line-height: 1;}
+        .date-display { font-size: 0.85rem; font-weight: 700; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 5px;}
 
         /* ⏱️ PROGRESS BAR */
         .progress-container {
@@ -79,48 +95,37 @@
             box-shadow: 0 0 10px rgba(43,76,155,0.4);
         }
 
-        /* スライド共通 (GLOBAL SLIDES) */
+        /* GLOBAL SLIDES */
         .slide {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             opacity: 0; visibility: hidden;
             transition: opacity 1.5s ease-in-out, visibility 1.5s ease-in-out, transform 1.5s ease;
             transform: scale(1.02);
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 10;
         }
         .slide.active { opacity: 1; visibility: visible; transform: scale(1); }
-
         .fade-up { opacity: 0; transform: translateY(30px); transition: all 1.2s cubic-bezier(0.2, 0.8, 0.2, 1); }
         .slide.active .fade-up { opacity: 1; transform: translateY(0); }
         .slide.active .delay-1 { transition-delay: 0.4s; }
         .slide.active .delay-2 { transition-delay: 0.8s; }
 
-        /* スライド1: オープニング (PERFECT CENTERING FIX) */
-        #slide1 {
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-        }
+        /* SLIDE 1: OPENING */
+        #slide1 { display: flex; flex-direction: column; justify-content: center; align-items: center; }
         .logo-img { 
-            width: 450px; 
-            max-width: 80vw;
-            display: block; 
-            margin: 0 auto 40px auto; /* PERFECT CENTER FIX */
+            width: 450px; max-width: 80vw; display: block; margin: 0 auto 40px auto; 
             filter: drop-shadow(0 20px 30px rgba(43, 76, 155, 0.15));
-            animation: levitate 6s ease-in-out infinite; /* EXPERT TOUCH: Levitation */
+            animation: levitate 6s ease-in-out infinite; 
         }
-        @keyframes levitate {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
-            100% { transform: translateY(0px); }
-        }
+        @keyframes levitate { 0% { transform: translateY(0px); } 50% { transform: translateY(-15px); } 100% { transform: translateY(0px); } }
         .company-name { 
             font-size: 3.5rem; font-weight: 700; letter-spacing: 0.2em; 
             background: linear-gradient(135deg, var(--primary-blue), var(--primary-dark));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent; /* EXPERT TOUCH: Text Gradient */
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
             margin-bottom: 5px; text-align: center;
         }
         .company-name-en { font-size: 1.4rem; color: var(--text-muted); letter-spacing: 0.3em; margin-top: 10px; text-align: center; font-weight: 500;}
 
-        /* スライド2: 会社概要 */
+        /* SLIDE 2: PROFILE */
         .profile-container { 
             display: flex; width: 85%; max-width: 1400px; height: 70%; 
             background: var(--bg-secondary); box-shadow: 0 20px 50px rgba(0,0,0,0.06); 
@@ -138,7 +143,7 @@
         }
         .slide.active .profile-image { transform: scale(1); }
 
-        /* スライド3: 製品紹介 */
+        /* SLIDE 3: PRODUCTS */
         .product-section-title { font-size: 2.8rem; color: var(--primary-blue); font-weight: 700; margin-bottom: 40px; letter-spacing: 0.1em; }
         .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; width: 90%; max-width: 1400px; }
         .product-card { 
@@ -147,21 +152,18 @@
             box-shadow: 0 15px 35px rgba(0,0,0,0.04);
         }
         .product-img-box { flex: 1; overflow: hidden; background-color: #F8F9FA; }
-        .img-spalcon { background-image: url('./img_spalcon.jpg'); }
-        .img-shuttle { background-image: url('./img_shuttle.jpg'); }
+        .img-spalcon { background-image: url('./img_spalcon.jpeg'); }
+        .img-shuttle { background-image: url('./img_shuttle.jpeg'); }
         .img-wingbend { background-image: url('./img_wingbend.jpg'); }
-        .img-screw { background-image: url('./img_screw.jpg'); }
-        .product-card-img {
-            width: 100%; height: 100%; background-size: cover; background-position: center;
-            transform: scale(1); transition: transform 12s ease-out;
-        }
+        .img-screw { background-image: url('./img_screw.jpeg'); }
+        .product-card-img { width: 100%; height: 100%; background-size: cover; background-position: center; transform: scale(1); transition: transform 12s ease-out; }
         .slide.active .product-card-img { transform: scale(1.1); }
         .product-info { flex: 1.2; padding: 30px; display: flex; flex-direction: column; justify-content: center; }
         .product-name { font-size: 1.8rem; font-weight: 700; color: var(--primary-blue); margin-bottom: 10px; line-height: 1.2;}
         .product-name span { font-size: 1rem; font-weight: 500; color: var(--text-muted); display: block; margin-top: 5px; }
         .product-features { font-size: 1.1rem; color: var(--text-main); line-height: 1.6; }
 
-        /* スライド4: クロージング & 📱 QR CODE SCANNER */
+        /* SLIDE 4: CLOSING & QR */
         .closing-container { 
             display: flex; align-items: center; justify-content: center; gap: 100px; text-align: left; 
             background: var(--bg-secondary); padding: 60px 100px; border-radius: 20px;
@@ -171,34 +173,18 @@
         .line-separator { width: 100px; height: 4px; background: var(--primary-blue); margin-bottom: 30px; border-radius: 2px;}
         .contact-info { font-size: 1.6rem; color: var(--text-muted); line-height: 2; margin-bottom: 30px; }
         .website-url { font-size: 2.2rem; color: var(--primary-blue); font-weight: 700; text-decoration: none; letter-spacing: 0.1em; display: inline-block;}
-        
-        .qr-box {
-            display: flex; flex-direction: column; align-items: center;
-        }
+        .qr-box { display: flex; flex-direction: column; align-items: center; }
         .qr-image-wrapper {
-            position: relative;
-            margin-bottom: 15px;
-            border-radius: 12px; 
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
-            border: 5px solid white;
-            overflow: hidden;
+            position: relative; margin-bottom: 15px; border-radius: 12px; 
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1); border: 5px solid white; overflow: hidden;
         }
-        .qr-image {
-            width: 220px; height: 220px; display: block;
-        }
-        /* EXPERT TOUCH: Laser Scan Animation over QR */
+        .qr-image { width: 220px; height: 220px; display: block; }
         .qr-scan-line {
             position: absolute; top: 0; left: 0; width: 100%; height: 3px;
-            background: rgba(43, 76, 155, 0.8);
-            box-shadow: 0 0 15px 5px rgba(43, 76, 155, 0.4);
+            background: rgba(43, 76, 155, 0.8); box-shadow: 0 0 15px 5px rgba(43, 76, 155, 0.4);
             animation: scan 2.5s ease-in-out infinite alternate;
         }
-        @keyframes scan {
-            0% { top: 5%; opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { top: 95%; opacity: 0; }
-        }
+        @keyframes scan { 0% { top: 5%; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { top: 95%; opacity: 0; } }
         .qr-text { font-size: 1.2rem; font-weight: 700; color: var(--primary-blue); letter-spacing: 0.1em; background: rgba(43, 76, 155, 0.05); padding: 8px 20px; border-radius: 30px;}
 
     </style>
@@ -207,8 +193,11 @@
 
     <div class="ambient-bg"></div>
     <div class="grid-overlay"></div>
+    
+    <div class="particles-container" id="particles"></div>
 
     <div class="live-clock-widget">
+        <div class="greeting-text" id="greeting">こんにちは</div>
         <div class="time-display" id="clock">00:00</div>
         <div class="date-display" id="date">Loading...</div>
     </div>
@@ -301,10 +290,10 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // --- 1. SLIDE LOGIC ---
             const slides = document.querySelectorAll('.slide');
             const progressBar = document.getElementById('progressBar');
             let currentSlideIndex = 0;
-
             const slideDurations = [6000, 10000, 12000, 8000];
 
             function showNextSlide() {
@@ -316,7 +305,7 @@
                 progressBar.style.transition = 'none'; 
                 progressBar.style.width = '0%';
                 
-                void progressBar.offsetWidth;
+                void progressBar.offsetWidth; // Force Reflow
                 
                 progressBar.style.transition = `width ${duration}ms linear`;
                 progressBar.style.width = '100%'; 
@@ -329,16 +318,55 @@
             progressBar.style.width = '100%';
             setTimeout(showNextSlide, slideDurations[currentSlideIndex]);
 
+            // --- 2. SMART CLOCK & GREETING LOGIC ---
             function updateClock() {
                 const now = new Date();
+                
+                // Konfigurasi waktu JST
                 const optionsTime = { timeZone: 'Asia/Tokyo', hour: '2-digit', minute: '2-digit', hour12: false };
                 const optionsDate = { timeZone: 'Asia/Tokyo', year: 'numeric', month: 'short', day: 'numeric', weekday: 'short' };
                 
                 document.getElementById('clock').textContent = new Intl.DateTimeFormat('ja-JP', optionsTime).format(now);
                 document.getElementById('date').textContent = new Intl.DateTimeFormat('en-US', optionsDate).format(now);
+
+                // Ekstrak jam lokal (JST) untuk Smart Greeting
+                const localHourStr = new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Tokyo', hour: 'numeric', hour12: false }).format(now);
+                const hour = parseInt(localHourStr, 10);
+                
+                const greetingElement = document.getElementById('greeting');
+                if (hour >= 5 && hour < 12) {
+                    greetingElement.textContent = 'おはようございます'; // Pagi
+                } else if (hour >= 12 && hour < 18) {
+                    greetingElement.textContent = 'こんにちは'; // Siang/Sore
+                } else {
+                    greetingElement.textContent = 'こんばんは'; // Malam
+                }
             }
             setInterval(updateClock, 1000);
             updateClock();
+
+            // --- 3. ZEN DUST PARTICLES LOGIC ---
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 15; // Jumlah partikel debu cahaya
+
+            for (let i = 0; i < particleCount; i++) {
+                let particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Randomize size, position, and animation duration
+                let size = Math.random() * 20 + 10; // 10px - 30px
+                let posX = Math.random() * 100; // 0% - 100% width
+                let delay = Math.random() * 15; // 0s - 15s delay
+                let duration = Math.random() * 10 + 15; // 15s - 25s duration
+
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${posX}vw`;
+                particle.style.animationDelay = `${delay}s`;
+                particle.style.animationDuration = `${duration}s`;
+
+                particlesContainer.appendChild(particle);
+            }
         });
     </script>
 </body>
