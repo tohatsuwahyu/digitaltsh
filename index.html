@@ -3,155 +3,156 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>東京精密発條株式会社 - Digital Signage Premium (Masterpiece)</title>
+    <title>東京精密発條株式会社 - Dynamic Smart Signage</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
     
     <style>
+        /* 🎨 DYNAMIC THEME VARIABLES */
         :root {
-            --primary-blue: #2B4C9B; 
-            --primary-dark: #162a5c;
-            --bg-main: #F4F7F9; 
-            --bg-secondary: #FFFFFF; 
-            --accent-silver: #D1D8E0; 
-            --text-main: #2C3E50; 
-            --text-muted: #647687; 
+            --primary-blue: #2B4C9B;
+            --transition-speed: 2s; /* Kecepatan transisi pergantian tema */
+        }
+
+        /* 🌞 TEMA PAGI / SIANG (Gradasi Orange Cerah & Biru Halus) */
+        body.theme-day {
+            --bg-grad-1: #FFE0B2; /* Orange Peach */
+            --bg-grad-2: #F4F7F9; /* Biru Awan Putih */
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --card-border: rgba(255, 255, 255, 1);
+            --text-main: #2C3E50;
+            --text-muted: #647687;
+            --accent-color: #E65100; /* Orange Gelap */
+        }
+
+        /* 🌇 TEMA SORE (Gradasi Senja / Sunset) */
+        body.theme-evening {
+            --bg-grad-1: #FF7E5F; /* Sunset Orange */
+            --bg-grad-2: #2B4C9B; /* Biru Malam TSH */
+            --card-bg: rgba(255, 255, 255, 0.15);
+            --card-border: rgba(255, 255, 255, 0.3);
+            --text-main: #FFFFFF;
+            --text-muted: #E0E0E0;
+            --accent-color: #FFD54F; /* Kuning Keemasan */
+        }
+
+        /* 🌃 TEMA MALAM (Gradasi Biru Gelap Elegan) */
+        body.theme-night {
+            --bg-grad-1: #162a5c; 
+            --bg-grad-2: #0a0f1a; 
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --card-border: rgba(255, 255, 255, 0.1);
+            --text-main: #FFFFFF;
+            --text-muted: #A0B0C0;
+            --accent-color: #8AB4F8; /* Biru Neon Halus */
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Noto Sans JP', sans-serif;
-            background-color: var(--bg-main);
             color: var(--text-main);
             overflow: hidden;
             width: 100vw;
             height: 100vh;
+            transition: color var(--transition-speed) ease;
         }
 
-        /* 🌌 AMBIENT BACKGROUND */
+        /* 🌌 BACKGROUND ANIMATION */
         .ambient-bg {
             position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(234,240,246,1) 80%);
-            animation: breathe 15s ease-in-out infinite alternate;
+            background: radial-gradient(circle at top right, var(--bg-grad-1) 0%, var(--bg-grad-2) 80%);
+            animation: breathe 20s ease-in-out infinite alternate;
             z-index: -2; pointer-events: none;
+            transition: background var(--transition-speed) ease;
         }
         @keyframes breathe {
-            0% { transform: scale(0.9); }
-            100% { transform: scale(1.1); }
+            0% { transform: scale(0.9) translate(0, 0); }
+            100% { transform: scale(1.1) translate(-2%, -2%); }
         }
 
-        /* ▦ GRID PRESISI */
         .grid-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
-            background-image: 
-                linear-gradient(rgba(43, 76, 155, 0.04) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(43, 76, 155, 0.04) 1px, transparent 1px);
+            background-image: linear-gradient(rgba(128, 128, 128, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(128, 128, 128, 0.1) 1px, transparent 1px);
             background-size: 40px 40px;
         }
 
-        /* ✨ ZEN DUST PARTICLES (NEW EXPERT TOUCH) */
-        .particles-container {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            overflow: hidden; z-index: 0; pointer-events: none;
+        /* ✨ PARTICLES */
+        .particles-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 0; pointer-events: none; }
+        .particle { position: absolute; border-radius: 50%; background: var(--text-main); filter: blur(4px); opacity: 0.2; animation: floatUp linear infinite; transition: background var(--transition-speed) ease;}
+        @keyframes floatUp { 0% { transform: translateY(110vh) scale(0.5); opacity: 0; } 20% { opacity: 0.3; } 80% { opacity: 0.3; } 100% { transform: translateY(-10vh) scale(1.5); opacity: 0; } }
+
+        /* 🌤️ WIDGET CUACA & JAM (SMART HUB) */
+        .smart-hub {
+            position: absolute; top: 30px; right: 40px; z-index: 100;
+            display: flex; gap: 20px; align-items: stretch;
         }
-        .particle {
-            position: absolute; border-radius: 50%;
-            background: rgba(43, 76, 155, 0.15);
-            filter: blur(5px);
-            animation: floatUp linear infinite;
-        }
-        @keyframes floatUp {
-            0% { transform: translateY(110vh) scale(0.5); opacity: 0; }
-            20% { opacity: 1; }
-            80% { opacity: 1; }
-            100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+        .widget-glass {
+            background: var(--card-bg); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            padding: 15px 25px; border-radius: 16px; border: 1px solid var(--card-border);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); display: flex; align-items: center; justify-content: center;
+            transition: background var(--transition-speed), border var(--transition-speed);
         }
 
-        /* 🕒 SMART GLASSMORPHISM WIDGET (NEW GREETING ADDED) */
-        .live-clock-widget {
-            position: absolute; top: 40px; right: 50px; z-index: 100;
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            padding: 15px 30px;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            border: 1px solid rgba(255,255,255,0.9);
-            text-align: right; display: flex; flex-direction: column; align-items: flex-end;
-        }
-        .greeting-text { font-size: 1rem; font-weight: 700; color: var(--primary-blue); margin-bottom: 5px; letter-spacing: 0.1em; }
-        .time-display { font-size: 2.2rem; font-weight: 500; letter-spacing: 0.05em; font-family: 'Helvetica Neue', sans-serif; color: var(--text-main); line-height: 1;}
+        /* Weather Styles */
+        .weather-icon { font-size: 2.8rem; margin-right: 15px; animation: weatherFloat 4s ease-in-out infinite; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));}
+        @keyframes weatherFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+        .weather-data { display: flex; flex-direction: column; }
+        .weather-temp { font-size: 1.8rem; font-weight: 700; color: var(--text-main); line-height: 1; font-family: 'Helvetica Neue', sans-serif; }
+        .weather-desc { font-size: 0.9rem; font-weight: 700; color: var(--accent-color); margin-top: 5px; letter-spacing: 0.05em; }
+        .weather-city { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; }
+
+        /* Clock Styles */
+        .clock-data { text-align: right; display: flex; flex-direction: column; align-items: flex-end;}
+        .greeting-text { font-size: 0.9rem; font-weight: 700; color: var(--accent-color); margin-bottom: 5px; letter-spacing: 0.1em; }
+        .time-display { font-size: 2.5rem; font-weight: 500; letter-spacing: 0.05em; font-family: 'Helvetica Neue', sans-serif; color: var(--text-main); line-height: 1;}
         .date-display { font-size: 0.85rem; font-weight: 700; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 5px;}
 
         /* ⏱️ PROGRESS BAR */
-        .progress-container {
-            position: absolute; bottom: 0; left: 0; width: 100%; height: 6px;
-            background: rgba(0,0,0,0.05); z-index: 100;
-        }
-        .progress-bar {
-            height: 100%; width: 0%; background: var(--primary-blue);
-            box-shadow: 0 0 10px rgba(43,76,155,0.4);
-        }
+        .progress-container { position: absolute; bottom: 0; left: 0; width: 100%; height: 6px; background: rgba(0,0,0,0.1); z-index: 100; }
+        .progress-bar { height: 100%; width: 0%; background: var(--accent-color); box-shadow: 0 0 10px var(--accent-color); transition: background var(--transition-speed); }
 
         /* GLOBAL SLIDES */
-        .slide {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            opacity: 0; visibility: hidden;
-            transition: opacity 1.5s ease-in-out, visibility 1.5s ease-in-out, transform 1.5s ease;
-            transform: scale(1.02);
-            display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 10;
-        }
+        .slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; visibility: hidden; transition: opacity 1.5s ease-in-out, visibility 1.5s ease-in-out, transform 1.5s ease; transform: scale(1.02); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 10; }
         .slide.active { opacity: 1; visibility: visible; transform: scale(1); }
         .fade-up { opacity: 0; transform: translateY(30px); transition: all 1.2s cubic-bezier(0.2, 0.8, 0.2, 1); }
         .slide.active .fade-up { opacity: 1; transform: translateY(0); }
         .slide.active .delay-1 { transition-delay: 0.4s; }
         .slide.active .delay-2 { transition-delay: 0.8s; }
 
-        /* SLIDE 1: OPENING */
+        /* SLIDE 1: LOGO (WITH GLASS CAPSULE FOR CONTRAST) */
         #slide1 { display: flex; flex-direction: column; justify-content: center; align-items: center; }
-        .logo-img { 
-            width: 450px; max-width: 80vw; display: block; margin: 0 auto 40px auto; 
-            filter: drop-shadow(0 20px 30px rgba(43, 76, 155, 0.15));
+        .logo-capsule {
+            background: rgba(255, 255, 255, 0.3); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            padding: 40px 80px; border-radius: 30px; border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1); margin-bottom: 40px;
             animation: levitate 6s ease-in-out infinite; 
         }
-        @keyframes levitate { 0% { transform: translateY(0px); } 50% { transform: translateY(-15px); } 100% { transform: translateY(0px); } }
-        .company-name { 
-            font-size: 3.5rem; font-weight: 700; letter-spacing: 0.2em; 
-            background: linear-gradient(135deg, var(--primary-blue), var(--primary-dark));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
-            margin-bottom: 5px; text-align: center;
-        }
+        .logo-img { width: 450px; max-width: 80vw; display: block; margin: 0 auto; filter: drop-shadow(0 10px 15px rgba(43, 76, 155, 0.2)); }
+        @keyframes levitate { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-15px); } }
+        .company-name { font-size: 3.5rem; font-weight: 700; letter-spacing: 0.2em; color: var(--text-main); margin-bottom: 5px; text-align: center; }
         .company-name-en { font-size: 1.4rem; color: var(--text-muted); letter-spacing: 0.3em; margin-top: 10px; text-align: center; font-weight: 500;}
 
-        /* SLIDE 2: PROFILE */
-        .profile-container { 
-            display: flex; width: 85%; max-width: 1400px; height: 70%; 
-            background: var(--bg-secondary); box-shadow: 0 20px 50px rgba(0,0,0,0.06); 
-            border-radius: 16px; overflow: hidden; border: 1px solid rgba(0,0,0,0.03);
+        /* OTHER COMPONENTS (Cards, Layout) */
+        .profile-container, .product-card, .closing-container { 
+            background: var(--card-bg); border: 1px solid var(--card-border); 
+            transition: background var(--transition-speed), border var(--transition-speed), color var(--transition-speed);
         }
+        
+        .profile-container { display: flex; width: 85%; max-width: 1400px; height: 70%; box-shadow: 0 20px 50px rgba(0,0,0,0.06); border-radius: 16px; overflow: hidden; }
         .profile-content { flex: 1.2; padding: 70px; display: flex; flex-direction: column; justify-content: center; }
-        .section-title { font-size: 2.8rem; color: var(--primary-blue); font-weight: 700; margin-bottom: 40px; border-bottom: 2px solid var(--accent-silver); padding-bottom: 15px; display: inline-block;}
+        .section-title { font-size: 2.8rem; color: var(--accent-color); font-weight: 700; margin-bottom: 40px; border-bottom: 2px solid var(--text-muted); padding-bottom: 15px; display: inline-block; transition: color var(--transition-speed);}
         .profile-list { list-style: none; font-size: 1.6rem; line-height: 2.4; }
-        .profile-list span { font-weight: 700; display: inline-block; width: 160px; color: var(--primary-blue); }
+        .profile-list span { font-weight: 700; display: inline-block; width: 160px; color: var(--accent-color); transition: color var(--transition-speed);}
         .profile-image-wrapper { flex: 1; overflow: hidden; position: relative; background-color: #eee; }
-        .profile-image {
-            width: 100%; height: 100%; background-image: url('./img_factory.jpg'); 
-            background-size: cover; background-position: center;
-            transform: scale(1.1); transition: transform 10s linear;
-        }
+        .profile-image { width: 100%; height: 100%; background-image: url('./img_factory.jpg'); background-size: cover; background-position: center; transform: scale(1.1); transition: transform 10s linear; }
         .slide.active .profile-image { transform: scale(1); }
 
-        /* SLIDE 3: PRODUCTS */
-        .product-section-title { font-size: 2.8rem; color: var(--primary-blue); font-weight: 700; margin-bottom: 40px; letter-spacing: 0.1em; }
+        .product-section-title { font-size: 2.8rem; color: var(--text-main); font-weight: 700; margin-bottom: 40px; letter-spacing: 0.1em; transition: color var(--transition-speed);}
         .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; width: 90%; max-width: 1400px; }
-        .product-card { 
-            background: var(--bg-secondary); border: 1px solid rgba(0,0,0,0.05); 
-            border-radius: 16px; overflow: hidden; display: flex; height: 240px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.04);
-        }
-        .product-img-box { flex: 1; overflow: hidden; background-color: #F8F9FA; }
+        .product-card { border-radius: 16px; overflow: hidden; display: flex; height: 240px; box-shadow: 0 15px 35px rgba(0,0,0,0.04); backdrop-filter: blur(10px); }
+        .product-img-box { flex: 1; overflow: hidden; background-color: #222; }
         .img-spalcon { background-image: url('./img_spalcon.jpeg'); }
         .img-shuttle { background-image: url('./img_shuttle.jpeg'); }
         .img-wingbend { background-image: url('./img_wingbend.jpg'); }
@@ -159,52 +160,51 @@
         .product-card-img { width: 100%; height: 100%; background-size: cover; background-position: center; transform: scale(1); transition: transform 12s ease-out; }
         .slide.active .product-card-img { transform: scale(1.1); }
         .product-info { flex: 1.2; padding: 30px; display: flex; flex-direction: column; justify-content: center; }
-        .product-name { font-size: 1.8rem; font-weight: 700; color: var(--primary-blue); margin-bottom: 10px; line-height: 1.2;}
+        .product-name { font-size: 1.8rem; font-weight: 700; color: var(--accent-color); margin-bottom: 10px; line-height: 1.2; transition: color var(--transition-speed);}
         .product-name span { font-size: 1rem; font-weight: 500; color: var(--text-muted); display: block; margin-top: 5px; }
-        .product-features { font-size: 1.1rem; color: var(--text-main); line-height: 1.6; }
+        .product-features { font-size: 1.1rem; line-height: 1.6; }
 
-        /* SLIDE 4: CLOSING & QR */
-        .closing-container { 
-            display: flex; align-items: center; justify-content: center; gap: 100px; text-align: left; 
-            background: var(--bg-secondary); padding: 60px 100px; border-radius: 20px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.03);
-        }
+        .closing-container { display: flex; align-items: center; justify-content: center; gap: 100px; text-align: left; padding: 60px 100px; border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.05); backdrop-filter: blur(10px);}
         .closing-title { font-size: 3rem; font-weight: 700; margin-bottom: 20px; letter-spacing: 0.05em; color: var(--text-main);}
-        .line-separator { width: 100px; height: 4px; background: var(--primary-blue); margin-bottom: 30px; border-radius: 2px;}
+        .line-separator { width: 100px; height: 4px; background: var(--accent-color); margin-bottom: 30px; border-radius: 2px; transition: background var(--transition-speed);}
         .contact-info { font-size: 1.6rem; color: var(--text-muted); line-height: 2; margin-bottom: 30px; }
-        .website-url { font-size: 2.2rem; color: var(--primary-blue); font-weight: 700; text-decoration: none; letter-spacing: 0.1em; display: inline-block;}
+        .website-url { font-size: 2.2rem; color: var(--accent-color); font-weight: 700; text-decoration: none; letter-spacing: 0.1em; display: inline-block; transition: color var(--transition-speed);}
         .qr-box { display: flex; flex-direction: column; align-items: center; }
-        .qr-image-wrapper {
-            position: relative; margin-bottom: 15px; border-radius: 12px; 
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1); border: 5px solid white; overflow: hidden;
-        }
+        .qr-image-wrapper { position: relative; margin-bottom: 15px; border-radius: 12px; box-shadow: 0 15px 30px rgba(0,0,0,0.1); border: 5px solid white; overflow: hidden; }
         .qr-image { width: 220px; height: 220px; display: block; }
-        .qr-scan-line {
-            position: absolute; top: 0; left: 0; width: 100%; height: 3px;
-            background: rgba(43, 76, 155, 0.8); box-shadow: 0 0 15px 5px rgba(43, 76, 155, 0.4);
-            animation: scan 2.5s ease-in-out infinite alternate;
-        }
+        .qr-scan-line { position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: rgba(43, 76, 155, 0.8); box-shadow: 0 0 15px 5px rgba(43, 76, 155, 0.4); animation: scan 2.5s ease-in-out infinite alternate; }
         @keyframes scan { 0% { top: 5%; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { top: 95%; opacity: 0; } }
-        .qr-text { font-size: 1.2rem; font-weight: 700; color: var(--primary-blue); letter-spacing: 0.1em; background: rgba(43, 76, 155, 0.05); padding: 8px 20px; border-radius: 30px;}
-
+        .qr-text { font-size: 1.2rem; font-weight: 700; color: var(--text-main); letter-spacing: 0.1em; background: rgba(0,0,0, 0.05); padding: 8px 20px; border-radius: 30px;}
     </style>
 </head>
-<body>
-
-    <div class="ambient-bg"></div>
+<body class="theme-day"> <div class="ambient-bg"></div>
     <div class="grid-overlay"></div>
-    
     <div class="particles-container" id="particles"></div>
 
-    <div class="live-clock-widget">
-        <div class="greeting-text" id="greeting">こんにちは</div>
-        <div class="time-display" id="clock">00:00</div>
-        <div class="date-display" id="date">Loading...</div>
+    <div class="smart-hub">
+        <div class="widget-glass">
+            <div class="weather-icon" id="weather-icon">☁️</div>
+            <div class="weather-data">
+                <span class="weather-temp" id="weather-temp">--°C</span>
+                <span class="weather-desc" id="weather-desc">Mencari Data...</span>
+                <span class="weather-city">YOKOHAMA</span>
+            </div>
+        </div>
+        
+        <div class="widget-glass">
+            <div class="clock-data">
+                <div class="greeting-text" id="greeting">こんにちは</div>
+                <div class="time-display" id="clock">00:00</div>
+                <div class="date-display" id="date">DAY | 曜日</div>
+            </div>
+        </div>
     </div>
 
     <section class="slide" id="slide1">
         <div class="fade-up" style="width: 100%; text-align: center;">
-            <img src="./tsh.png" alt="TSH Logo" class="logo-img">
+            <div class="logo-capsule">
+                <img src="./tsh.png" alt="TSH Logo" class="logo-img">
+            </div>
             <h1 class="company-name fade-up delay-1">東京精密発條株式会社</h1>
             <p class="company-name-en fade-up delay-2">Tokyo Seimitsu Hatsujou Co., Ltd.</p>
         </div>
@@ -290,6 +290,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            
             // --- 1. SLIDE LOGIC ---
             const slides = document.querySelectorAll('.slide');
             const progressBar = document.getElementById('progressBar');
@@ -304,68 +305,97 @@
                 const duration = slideDurations[currentSlideIndex];
                 progressBar.style.transition = 'none'; 
                 progressBar.style.width = '0%';
-                
-                void progressBar.offsetWidth; // Force Reflow
-                
+                void progressBar.offsetWidth; 
                 progressBar.style.transition = `width ${duration}ms linear`;
                 progressBar.style.width = '100%'; 
 
                 setTimeout(showNextSlide, duration);
             }
-
             slides[currentSlideIndex].classList.add('active');
             progressBar.style.transition = `width ${slideDurations[currentSlideIndex]}ms linear`;
             progressBar.style.width = '100%';
             setTimeout(showNextSlide, slideDurations[currentSlideIndex]);
 
-            // --- 2. SMART CLOCK & GREETING LOGIC ---
-            function updateClock() {
+            // --- 2. TIME, BILINGUAL DATE & THEME ENGINE ---
+            function updateTimeAndTheme() {
                 const now = new Date();
+                const jstOptions = { timeZone: 'Asia/Tokyo' };
                 
-                // Konfigurasi waktu JST
-                const optionsTime = { timeZone: 'Asia/Tokyo', hour: '2-digit', minute: '2-digit', hour12: false };
-                const optionsDate = { timeZone: 'Asia/Tokyo', year: 'numeric', month: 'short', day: 'numeric', weekday: 'short' };
-                
-                document.getElementById('clock').textContent = new Intl.DateTimeFormat('ja-JP', optionsTime).format(now);
-                document.getElementById('date').textContent = new Intl.DateTimeFormat('en-US', optionsDate).format(now);
+                // Set Jam (00:00)
+                const timeStr = new Intl.DateTimeFormat('ja-JP', { ...jstOptions, hour: '2-digit', minute: '2-digit', hour12: false }).format(now);
+                document.getElementById('clock').textContent = timeStr;
 
-                // Ekstrak jam lokal (JST) untuk Smart Greeting
-                const localHourStr = new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Tokyo', hour: 'numeric', hour12: false }).format(now);
-                const hour = parseInt(localHourStr, 10);
-                
+                // Set Tanggal Dwibahasa (Contoh: WED | 水曜日)
+                const dateEn = new Intl.DateTimeFormat('en-US', { ...jstOptions, month: 'short', day: 'numeric' }).format(now).toUpperCase();
+                const dayEn = new Intl.DateTimeFormat('en-US', { ...jstOptions, weekday: 'short' }).format(now).toUpperCase();
+                const dayJa = new Intl.DateTimeFormat('ja-JP', { ...jstOptions, weekday: 'long' }).format(now);
+                document.getElementById('date').textContent = `${dateEn}, ${dayEn} | ${dayJa}`;
+
+                // Set Greeting & Theme Berdasarkan Jam Yokohama
+                const hour = parseInt(new Intl.DateTimeFormat('en-US', { ...jstOptions, hour: 'numeric', hour12: false }).format(now), 10);
                 const greetingElement = document.getElementById('greeting');
-                if (hour >= 5 && hour < 12) {
-                    greetingElement.textContent = 'おはようございます'; // Pagi
-                } else if (hour >= 12 && hour < 18) {
-                    greetingElement.textContent = 'こんにちは'; // Siang/Sore
+                const body = document.body;
+
+                body.classList.remove('theme-day', 'theme-evening', 'theme-night');
+
+                if (hour >= 6 && hour < 16) {
+                    greetingElement.textContent = 'おはようございます'; // Pagi/Siang
+                    body.classList.add('theme-day');
+                } else if (hour >= 16 && hour < 19) {
+                    greetingElement.textContent = 'こんにちは'; // Sore/Senja
+                    body.classList.add('theme-evening');
                 } else {
                     greetingElement.textContent = 'こんばんは'; // Malam
+                    body.classList.add('theme-night');
                 }
             }
-            setInterval(updateClock, 1000);
-            updateClock();
+            setInterval(updateTimeAndTheme, 1000);
+            updateTimeAndTheme();
 
-            // --- 3. ZEN DUST PARTICLES LOGIC ---
+            // --- 3. REAL-TIME WEATHER (OPEN-METEO API - NO KEY NEEDED) ---
+            async function fetchWeather() {
+                try {
+                    // Koordinat Kota Yokohama
+                    const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=35.4478&longitude=139.6425&current=temperature_2m,weather_code&timezone=Asia%2FTokyo');
+                    const data = await res.json();
+                    
+                    const temp = Math.round(data.current.temperature_2m);
+                    const code = data.current.weather_code;
+                    
+                    let icon = '☀️';
+                    let desc = '晴れ'; // Cerah
+
+                    // Mapping WMO Weather Codes ke Ikon Animasi
+                    if (code === 0) { icon = '☀️'; desc = '快晴 (Cerah)'; }
+                    else if (code >= 1 && code <= 3) { icon = '⛅'; desc = '曇り (Berawan)'; }
+                    else if (code === 45 || code === 48) { icon = '🌫️'; desc = '霧 (Berkabut)'; }
+                    else if (code >= 51 && code <= 67) { icon = '🌧️'; desc = '雨 (Hujan)'; }
+                    else if (code >= 71 && code <= 77) { icon = '❄️'; desc = '雪 (Salju)'; }
+                    else if (code >= 80 && code <= 82) { icon = '🌦️'; desc = '俄か雨 (Hujan Lokal)'; }
+                    else if (code >= 95) { icon = '⛈️'; desc = '雷雨 (Badai Petir)'; }
+
+                    document.getElementById('weather-temp').textContent = `${temp}°C`;
+                    document.getElementById('weather-icon').textContent = icon;
+                    document.getElementById('weather-desc').textContent = desc;
+
+                } catch (error) {
+                    console.error("Gagal mengambil data cuaca:", error);
+                    document.getElementById('weather-desc').textContent = "Offline";
+                }
+            }
+            fetchWeather();
+            setInterval(fetchWeather, 1800000); // Update cuaca setiap 30 menit
+
+            // --- 4. ZEN PARTICLES ---
             const particlesContainer = document.getElementById('particles');
-            const particleCount = 15; // Jumlah partikel debu cahaya
-
-            for (let i = 0; i < particleCount; i++) {
-                let particle = document.createElement('div');
-                particle.classList.add('particle');
-                
-                // Randomize size, position, and animation duration
-                let size = Math.random() * 20 + 10; // 10px - 30px
-                let posX = Math.random() * 100; // 0% - 100% width
-                let delay = Math.random() * 15; // 0s - 15s delay
-                let duration = Math.random() * 10 + 15; // 15s - 25s duration
-
-                particle.style.width = `${size}px`;
-                particle.style.height = `${size}px`;
-                particle.style.left = `${posX}vw`;
-                particle.style.animationDelay = `${delay}s`;
-                particle.style.animationDuration = `${duration}s`;
-
-                particlesContainer.appendChild(particle);
+            for (let i = 0; i < 15; i++) {
+                let p = document.createElement('div');
+                p.classList.add('particle');
+                p.style.width = p.style.height = `${Math.random() * 20 + 10}px`;
+                p.style.left = `${Math.random() * 100}vw`;
+                p.style.animationDelay = `${Math.random() * 15}s`;
+                p.style.animationDuration = `${Math.random() * 10 + 15}s`;
+                particlesContainer.appendChild(p);
             }
         });
     </script>
