@@ -366,13 +366,13 @@
                     let desc = '晴れ'; // Cerah
 
                     // Mapping WMO Weather Codes ke Ikon Animasi
-                    if (code === 0) { icon = '☀️'; desc = '快晴 (Cerah)'; }
-                    else if (code >= 1 && code <= 3) { icon = '⛅'; desc = '曇り (Berawan)'; }
-                    else if (code === 45 || code === 48) { icon = '🌫️'; desc = '霧 (Berkabut)'; }
-                    else if (code >= 51 && code <= 67) { icon = '🌧️'; desc = '雨 (Hujan)'; }
-                    else if (code >= 71 && code <= 77) { icon = '❄️'; desc = '雪 (Salju)'; }
-                    else if (code >= 80 && code <= 82) { icon = '🌦️'; desc = '俄か雨 (Hujan Lokal)'; }
-                    else if (code >= 95) { icon = '⛈️'; desc = '雷雨 (Badai Petir)'; }
+                    if (code === 0) { icon = '☀️'; desc = '快晴'; }
+                    else if (code >= 1 && code <= 3) { icon = '⛅'; desc = '曇り'; }
+                    else if (code === 45 || code === 48) { icon = '🌫️'; desc = '霧'; }
+                    else if (code >= 51 && code <= 67) { icon = '🌧️'; desc = '雨'; }
+                    else if (code >= 71 && code <= 77) { icon = '❄️'; desc = '雪'; }
+                    else if (code >= 80 && code <= 82) { icon = '🌦️'; desc = '俄か雨'; }
+                    else if (code >= 95) { icon = '⛈️'; desc = '雷雨'; }
 
                     document.getElementById('weather-temp').textContent = `${temp}°C`;
                     document.getElementById('weather-icon').textContent = icon;
