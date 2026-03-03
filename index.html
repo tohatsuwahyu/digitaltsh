@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>東京精密発條株式会社 - Digital Signage</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-blue: #2B4C9B; /* ロゴに合わせたインダストリアルブルー */
+            --bg-black: #121212;
+            --pure-white: #FFFFFF;
+            --silver: #E4E4E4;
+            --text-main: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: var(--bg-black);
+            color: var(--text-main);
+            overflow: hidden; /* スクロールバーを隠す */
+            width: 100vw;
+            height: 100vh;
+        }
+
+        /* スライドの共通設定 */
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 1.5s ease-in-out, visibility 1.5s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* 背景のアニメーション効果 */
+        .bg-pan {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 110%;
+            height: 110%;
+            z-index: -1;
+            background-size: cover;
+            background-position: center;
+            animation: panBg 20s linear infinite alternate;
+            filter: brightness(0.4);
+        }
+
+        @keyframes panBg {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(-2%, -2%) scale(1.05); }
+        }
+
+        /* アニメーション要素 */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease-out;
+        }
+
+        .slide.active .fade-up {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide.active .delay-1 { transition-delay: 0.5s; }
+        .slide.active .delay-2 { transition-delay: 1.0s; }
+        .slide.active .delay-3 { transition-delay: 1.5s; }
+
+        /* スライド1: オープニング */
+        #slide1 { background: radial-gradient(circle, #1a2a4f 0%, var(--bg-black) 80%); }
+        .logo-container { text-align: center; }
+        .logo-img { width: 400px; margin-bottom: 20px; filter: drop-shadow(0 0 20px rgba(255,255,255,0.2)); }
+        .company-name { font-size: 3rem; font-weight: 700; letter-spacing: 0.2em; }
+        .company-name-en { font-size: 1.2rem; color: var(--silver); letter-spacing: 0.3em; margin-top: 10px; }
+
+        /* スライド2: 会社概要 */
+        #slide2 { background-color: var(--pure-white); color: #333; }
+        .grid-bg {
+            position: absolute; width: 100%; height: 100%; z-index: -1;
+            background-image: linear-gradient(#e0e0e0 1px, transparent 1px), linear-gradient(90deg, #e0e0e0 1px, transparent 1px);
+            background-size: 40px 40px;
+            opacity: 0.5;
+        }
+        .profile-container { display: flex; width: 80%; max-width: 1200px; height: 70%; background: rgba(255,255,255,0.9); box-shadow: 0 20px 50px rgba(0,0,0,0.1); border-left: 8px solid var(--primary-blue); }
+        .profile-content { flex: 1; padding: 60px; display: flex; flex-direction: column; justify-content: center; }
+        .section-title { font-size: 2.5rem; color: var(--primary-blue); font-weight: 700; margin-bottom: 30px; border-bottom: 2px solid var(--primary-blue); padding-bottom: 10px; display: inline-block;}
+        .profile-list { list-style: none; font-size: 1.5rem; line-height: 2.5; }
+        .profile-list span { font-weight: 700; display: inline-block; width: 150px; color: var(--primary-blue); }
+        .profile-image { flex: 1; background: linear-gradient(45deg, var(--primary-blue), #1a2a4f); }
+
+        /* スライド3: 製品紹介 */
+        #slide3 { background: linear-gradient(135deg, var(--primary-blue) 0%, #0d1b2a 100%); }
+        .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; width: 80%; max-width: 1200px; margin-top: 40px; }
+        .product-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); padding: 30px; border-radius: 8px; backdrop-filter: blur(10px); }
+        .product-name { font-size: 1.8rem; font-weight: 700; margin-bottom: 15px; color: var(--pure-white); }
+        .product-features { font-size: 1.1rem; color: var(--silver); }
+        .feature-tags { margin-top: 30px; display: flex; gap: 20px; justify-content: center; }
+        .tag { background: rgba(255,255,255,0.1); padding: 10px 20px; border-radius: 30px; border: 1px solid var(--silver); font-weight: 500; letter-spacing: 0.1em; }
+
+        /* スライド4: テクノロジーと哲学 */
+        #slide4 { background-color: var(--bg-black); }
+        .tech-lines {
+            position: absolute; width: 100%; height: 1px; background: rgba(43, 76, 155, 0.5);
+            box-shadow: 0 0 10px var(--primary-blue); top: 50%; transform: translateY(-50%);
+            animation: scanline 4s linear infinite;
+        }
+        @keyframes scanline {
+            0% { top: 10%; opacity: 0; }
+            50% { opacity: 1; }
+            100% { top: 90%; opacity: 0; }
+        }
+        .philosophy-text { font-size: 3.5rem; font-weight: 300; text-align: center; letter-spacing: 0.1em; text-shadow: 0 0 20px rgba(255,255,255,0.3); }
+        .philosophy-sub { font-size: 1.5rem; color: var(--primary-blue); margin-top: 20px; font-weight: 500; letter-spacing: 0.2em;}
+
+        /* スライド5: クロージング */
+        #slide5 { background: var(--bg-black); text-align: center; }
+        .closing-title { font-size: 2.8rem; font-weight: 700; margin-bottom: 40px; }
+        .line-separator { width: 100px; height: 2px; background: var(--silver); margin: 0 auto 40px auto; }
+        .contact-info { font-size: 1.4rem; color: var(--silver); line-height: 2; margin-bottom: 40px; }
+        .website-url { font-size: 2rem; color: var(--primary-blue); font-weight: 700; text-decoration: none; }
+        
+    </style>
+</head>
+<body>
+
+    <section class="slide" id="slide1">
+        <div class="logo-container fade-up">
+            <img src="./tsh.png" alt="TSH Logo" class="logo-img">
+            <h1 class="company-name fade-up delay-1">東京精密発條株式会社</h1>
+            <p class="company-name-en fade-up delay-2">Tokyo Seimitsu Hatsujou Co., Ltd.</p>
+        </div>
+    </section>
+
+    <section class="slide" id="slide2">
+        <div class="grid-bg"></div>
+        <div class="profile-container fade-up">
+            <div class="profile-content">
+                <h2 class="section-title">会社概要</h2>
+                <ul class="profile-list fade-up delay-1">
+                    <li><span>創業</span> 1930年（昭和5年）</li>
+                    <li><span>設立</span> 1953年（昭和28年）</li>
+                    <li><span>拠点</span> 横浜本社・工場 / 駒岡工場</li>
+                    <li><span>事業内容</span> 工作機械周辺機器・曲げ型の開発・製造</li>
+                </ul>
+            </div>
+            <div class="profile-image fade-up delay-2">
+                </div>
+        </div>
+    </section>
+
+    <section class="slide" id="slide3">
+        <h2 class="section-title" style="color: white; border-color: white;">主要製品・技術</h2>
+        <div class="product-grid fade-up delay-1">
+            <div class="product-card">
+                <div class="product-name">SPALCON<br><span style="font-size: 1rem; font-weight: normal;">スパイラルコンベア スパルコン</span></div>
+                <div class="product-features">切粉の搬送をスムーズかつ確実に行う高耐久コンベアシステム。</div>
+            </div>
+            <div class="product-card">
+                <div class="product-name">Shuttle Guard<br><span style="font-size: 1rem; font-weight: normal;">シャトルガード</span></div>
+                <div class="product-features">機械の摺動面を確実に保護する高精度テレスコピックカバー。</div>
+            </div>
+            <div class="product-card">
+                <div class="product-name">Wing Bend / Plus<br><span style="font-size: 1rem; font-weight: normal;">ウイングベンド / プラス</span></div>
+                <div class="product-features">傷をつけずに精密な曲げ加工を実現する画期的なプレス用金型。</div>
+            </div>
+            <div class="product-card">
+                <div class="product-name">Screw Cover & Post Cover<br><span style="font-size: 1rem; font-weight: normal;">スクリューカバー / ポストカバー</span></div>
+                <div class="product-features">ボールねじやシャフトを粉塵から守るスプリング式保護カバー。</div>
+            </div>
+        </div>
+        <div class="feature-tags fade-up delay-2">
+            <span class="tag">耐久性 (Durability)</span>
+            <span class="tag">滑らかな可動 (Smooth Movement)</span>
+            <span class="tag">高精度 (High Precision)</span>
+        </div>
+    </section>
+
+    <section class="slide" id="slide4">
+        <div class="tech-lines"></div>
+        <div class="fade-up">
+            <h2 class="philosophy-text">Crafted with<br>Japanese Monozukuri Spirit</h2>
+            <p class="philosophy-sub fade-up delay-1">妥協なき精度。受け継がれる日本のモノづくり精神。</p>
+        </div>
+    </section>
+
+    <section class="slide" id="slide5">
+        <div class="fade-up">
+            <h2 class="closing-title">Engineering Reliability Since 1930</h2>
+            <div class="line-separator delay-1"></div>
+            <div class="contact-info fade-up delay-1">
+                神奈川県横浜市鶴見区<br>
+                Yokohama, Kanagawa, Japan
+            </div>
+            <div class="fade-up delay-2">
+                <a href="http://www.to-hatsu.co.jp/" class="website-url">to-hatsu.co.jp</a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = document.querySelectorAll('.slide');
+            let currentSlideIndex = 0;
+
+            // 各スライドの表示秒数（ミリ秒）
+            // Slide 1: 5s, Slide 2: 8s, Slide 3: 10s, Slide 4: 7s, Slide 5: 6s
+            const slideDurations = [5000, 8000, 10000, 7000, 6000];
+
+            function showNextSlide() {
+                // 現在のスライドを非表示
+                slides[currentSlideIndex].classList.remove('active');
+
+                // 次のスライドのインデックスを計算
+                currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+
+                // 次のスライドを表示
+                slides[currentSlideIndex].classList.add('active');
+
+                // 次のスライドの待機時間を設定して再帰呼び出し
+                setTimeout(showNextSlide, slideDurations[currentSlideIndex]);
+            }
+
+            // 初期化：最初のスライドを表示
+            slides[currentSlideIndex].classList.add('active');
+            
+            // 最初のアニメーションタイマーを開始
+            setTimeout(showNextSlide, slideDurations[currentSlideIndex]);
+        });
+    </script>
+</body>
+</html>
