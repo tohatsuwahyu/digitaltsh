@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>東京精密発條株式会社 - Dynamic Smart Signage</title>
+    <title>東京精密発條株式会社 - Ultimate Smart Signage</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -12,65 +12,47 @@
         /* 🎨 DYNAMIC THEME VARIABLES */
         :root {
             --primary-blue: #2B4C9B;
-            --transition-speed: 2s; /* Kecepatan transisi pergantian tema */
+            --transition-speed: 2s; 
         }
 
-        /* 🌞 TEMA PAGI / SIANG (Gradasi Orange Cerah & Biru Halus) */
+        /* 🌞 TEMA PAGI / SIANG */
         body.theme-day {
-            --bg-grad-1: #FFE0B2; /* Orange Peach */
-            --bg-grad-2: #F4F7F9; /* Biru Awan Putih */
-            --card-bg: rgba(255, 255, 255, 0.85);
-            --card-border: rgba(255, 255, 255, 1);
-            --text-main: #2C3E50;
-            --text-muted: #647687;
-            --accent-color: #E65100; /* Orange Gelap */
+            --bg-grad-1: #FFE0B2; --bg-grad-2: #F4F7F9; 
+            --card-bg: rgba(255, 255, 255, 0.85); --card-border: rgba(255, 255, 255, 1);
+            --text-main: #2C3E50; --text-muted: #647687; --accent-color: #E65100;
         }
 
-        /* 🌇 TEMA SORE (Gradasi Senja / Sunset) */
+        /* 🌇 TEMA SORE */
         body.theme-evening {
-            --bg-grad-1: #FF7E5F; /* Sunset Orange */
-            --bg-grad-2: #2B4C9B; /* Biru Malam TSH */
-            --card-bg: rgba(255, 255, 255, 0.15);
-            --card-border: rgba(255, 255, 255, 0.3);
-            --text-main: #FFFFFF;
-            --text-muted: #E0E0E0;
-            --accent-color: #FFD54F; /* Kuning Keemasan */
+            --bg-grad-1: #FF7E5F; --bg-grad-2: #2B4C9B; 
+            --card-bg: rgba(255, 255, 255, 0.15); --card-border: rgba(255, 255, 255, 0.3);
+            --text-main: #FFFFFF; --text-muted: #E0E0E0; --accent-color: #FFD54F;
         }
 
-        /* 🌃 TEMA MALAM (Gradasi Biru Gelap Elegan) */
+        /* 🌃 TEMA MALAM */
         body.theme-night {
-            --bg-grad-1: #162a5c; 
-            --bg-grad-2: #0a0f1a; 
-            --card-bg: rgba(255, 255, 255, 0.05);
-            --card-border: rgba(255, 255, 255, 0.1);
-            --text-main: #FFFFFF;
-            --text-muted: #A0B0C0;
-            --accent-color: #8AB4F8; /* Biru Neon Halus */
+            --bg-grad-1: #162a5c; --bg-grad-2: #0a0f1a; 
+            --card-bg: rgba(255, 255, 255, 0.05); --card-border: rgba(255, 255, 255, 0.1);
+            --text-main: #FFFFFF; --text-muted: #A0B0C0; --accent-color: #8AB4F8;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Noto Sans JP', sans-serif;
-            color: var(--text-main);
-            overflow: hidden;
-            width: 100vw;
-            height: 100vh;
+            font-family: 'Noto Sans JP', sans-serif; color: var(--text-main);
+            overflow: hidden; width: 100vw; height: 100vh;
             transition: color var(--transition-speed) ease;
+            user-select: none; /* Cegah teks terblokir saat di-klik */
         }
 
         /* 🌌 BACKGROUND ANIMATION */
         .ambient-bg {
             position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
             background: radial-gradient(circle at top right, var(--bg-grad-1) 0%, var(--bg-grad-2) 80%);
-            animation: breathe 20s ease-in-out infinite alternate;
-            z-index: -2; pointer-events: none;
+            animation: breathe 20s ease-in-out infinite alternate; z-index: -2; pointer-events: none;
             transition: background var(--transition-speed) ease;
         }
-        @keyframes breathe {
-            0% { transform: scale(0.9) translate(0, 0); }
-            100% { transform: scale(1.1) translate(-2%, -2%); }
-        }
+        @keyframes breathe { 0% { transform: scale(0.9) translate(0, 0); } 100% { transform: scale(1.1) translate(-2%, -2%); } }
 
         .grid-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
@@ -83,71 +65,88 @@
         .particle { position: absolute; border-radius: 50%; background: var(--text-main); filter: blur(4px); opacity: 0.2; animation: floatUp linear infinite; transition: background var(--transition-speed) ease;}
         @keyframes floatUp { 0% { transform: translateY(110vh) scale(0.5); opacity: 0; } 20% { opacity: 0.3; } 80% { opacity: 0.3; } 100% { transform: translateY(-10vh) scale(1.5); opacity: 0; } }
 
-        /* 🌤️ WIDGET CUACA & JAM (SMART HUB) */
-        .smart-hub {
-            position: absolute; top: 30px; right: 40px; z-index: 100;
-            display: flex; gap: 20px; align-items: stretch;
-        }
+        /* 🌤️ SMART HUB (CUACA & JAM) */
+        .smart-hub { position: absolute; top: 30px; right: 40px; z-index: 100; display: flex; gap: 20px; align-items: stretch; }
         .widget-glass {
             background: var(--card-bg); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
             padding: 15px 25px; border-radius: 16px; border: 1px solid var(--card-border);
             box-shadow: 0 10px 30px rgba(0,0,0,0.05); display: flex; align-items: center; justify-content: center;
             transition: background var(--transition-speed), border var(--transition-speed);
         }
-
-        /* Weather Styles */
         .weather-icon { font-size: 2.8rem; margin-right: 15px; animation: weatherFloat 4s ease-in-out infinite; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));}
         @keyframes weatherFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
         .weather-data { display: flex; flex-direction: column; }
         .weather-temp { font-size: 1.8rem; font-weight: 700; color: var(--text-main); line-height: 1; font-family: 'Helvetica Neue', sans-serif; }
         .weather-desc { font-size: 0.9rem; font-weight: 700; color: var(--accent-color); margin-top: 5px; letter-spacing: 0.05em; }
         .weather-city { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; }
-
-        /* Clock Styles */
         .clock-data { text-align: right; display: flex; flex-direction: column; align-items: flex-end;}
         .greeting-text { font-size: 0.9rem; font-weight: 700; color: var(--accent-color); margin-bottom: 5px; letter-spacing: 0.1em; }
         .time-display { font-size: 2.5rem; font-weight: 500; letter-spacing: 0.05em; font-family: 'Helvetica Neue', sans-serif; color: var(--text-main); line-height: 1;}
         .date-display { font-size: 0.85rem; font-weight: 700; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 5px;}
 
-        /* ⏱️ PROGRESS BAR */
-        .progress-container { position: absolute; bottom: 0; left: 0; width: 100%; height: 6px; background: rgba(0,0,0,0.1); z-index: 100; }
-        .progress-bar { height: 100%; width: 0%; background: var(--accent-color); box-shadow: 0 0 10px var(--accent-color); transition: background var(--transition-speed); }
+        /* ⏱️ PROGRESS BAR & TICKER */
+        .ticker-container {
+            position: absolute; bottom: 6px; left: 0; width: 100%; height: 40px;
+            background: rgba(0,0,0,0.4); backdrop-filter: blur(10px); z-index: 99;
+            display: flex; align-items: center; overflow: hidden;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        .ticker-text {
+            white-space: nowrap; font-size: 1.1rem; font-weight: 500; color: #FFF; letter-spacing: 0.1em;
+            animation: tickerScroll 25s linear infinite;
+        }
+        .ticker-text span { margin-right: 50px; color: var(--accent-color); font-weight: 700;}
+        @keyframes tickerScroll { 0% { transform: translateX(100vw); } 100% { transform: translateX(-100%); } }
+
+        .progress-container { position: absolute; bottom: 0; left: 0; width: 100%; height: 6px; background: rgba(0,0,0,0.8); z-index: 100; }
+        .progress-bar { height: 100%; width: 0%; background: var(--accent-color); box-shadow: 0 0 10px var(--accent-color); transition: width linear; }
+
+        /* ⏸️ PAUSE INDICATOR */
+        .pause-indicator {
+            position: absolute; top: 30px; left: 40px; z-index: 100;
+            background: rgba(0,0,0,0.6); backdrop-filter: blur(10px); color: white;
+            padding: 10px 20px; border-radius: 30px; font-weight: 700; letter-spacing: 0.1em;
+            display: flex; align-items: center; gap: 10px; opacity: 0; transform: translateY(-20px);
+            transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.2);
+        }
+        .pause-indicator.show { opacity: 1; transform: translateY(0); }
+        .pause-icon { display: inline-block; width: 12px; height: 14px; border-left: 4px solid white; border-right: 4px solid white; }
 
         /* GLOBAL SLIDES */
-        .slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; visibility: hidden; transition: opacity 1.5s ease-in-out, visibility 1.5s ease-in-out, transform 1.5s ease; transform: scale(1.02); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 10; }
+        .slide { position: absolute; top: 0; left: 0; width: 100%; height: calc(100% - 46px); opacity: 0; visibility: hidden; transition: opacity 1.5s ease-in-out, visibility 1.5s ease-in-out, transform 1.5s ease; transform: scale(1.02); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 10; }
         .slide.active { opacity: 1; visibility: visible; transform: scale(1); }
         .fade-up { opacity: 0; transform: translateY(30px); transition: all 1.2s cubic-bezier(0.2, 0.8, 0.2, 1); }
         .slide.active .fade-up { opacity: 1; transform: translateY(0); }
         .slide.active .delay-1 { transition-delay: 0.4s; }
         .slide.active .delay-2 { transition-delay: 0.8s; }
 
-        /* SLIDE 1: LOGO (WITH GLASS CAPSULE FOR CONTRAST) */
+        /* SLIDE 1: LOGO (OPTICAL CENTERING FIX) */
         #slide1 { display: flex; flex-direction: column; justify-content: center; align-items: center; }
         .logo-capsule {
             background: rgba(255, 255, 255, 0.3); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
             padding: 40px 80px; border-radius: 30px; border: 1px solid rgba(255, 255, 255, 0.5);
             box-shadow: 0 20px 40px rgba(0,0,0,0.1); margin-bottom: 40px;
             animation: levitate 6s ease-in-out infinite; 
+            /* ⚖️ OPTICAL FIX: Geser sedikit ke kiri untuk mengimbangi kemiringan jajar genjang */
+            transform: translateX(-3%); 
         }
         .logo-img { width: 450px; max-width: 80vw; display: block; margin: 0 auto; filter: drop-shadow(0 10px 15px rgba(43, 76, 155, 0.2)); }
-        @keyframes levitate { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-15px); } }
+        @keyframes levitate { 0%, 100% { transform: translateX(-3%) translateY(0px); } 50% { transform: translateX(-3%) translateY(-15px); } }
+        
         .company-name { font-size: 3.5rem; font-weight: 700; letter-spacing: 0.2em; color: var(--text-main); margin-bottom: 5px; text-align: center; }
         .company-name-en { font-size: 1.4rem; color: var(--text-muted); letter-spacing: 0.3em; margin-top: 10px; text-align: center; font-weight: 500;}
 
-        /* OTHER COMPONENTS (Cards, Layout) */
-        .profile-container, .product-card, .closing-container { 
-            background: var(--card-bg); border: 1px solid var(--card-border); 
-            transition: background var(--transition-speed), border var(--transition-speed), color var(--transition-speed);
-        }
-        
+        /* OTHER COMPONENTS */
+        .profile-container, .product-card, .closing-container { background: var(--card-bg); border: 1px solid var(--card-border); transition: background var(--transition-speed), border var(--transition-speed), color var(--transition-speed); }
         .profile-container { display: flex; width: 85%; max-width: 1400px; height: 70%; box-shadow: 0 20px 50px rgba(0,0,0,0.06); border-radius: 16px; overflow: hidden; }
         .profile-content { flex: 1.2; padding: 70px; display: flex; flex-direction: column; justify-content: center; }
         .section-title { font-size: 2.8rem; color: var(--accent-color); font-weight: 700; margin-bottom: 40px; border-bottom: 2px solid var(--text-muted); padding-bottom: 15px; display: inline-block; transition: color var(--transition-speed);}
         .profile-list { list-style: none; font-size: 1.6rem; line-height: 2.4; }
         .profile-list span { font-weight: 700; display: inline-block; width: 160px; color: var(--accent-color); transition: color var(--transition-speed);}
         .profile-image-wrapper { flex: 1; overflow: hidden; position: relative; background-color: #eee; }
-        .profile-image { width: 100%; height: 100%; background-image: url('./img_factory.jpg'); background-size: cover; background-position: center; transform: scale(1.1); transition: transform 10s linear; }
-        .slide.active .profile-image { transform: scale(1); }
+        /* KEN BURNS ANIMATION FOR IMAGES */
+        .profile-image { width: 100%; height: 100%; background-image: url('./img_factory.jpg'); background-size: cover; background-position: center; transform: scale(1.1); transition: transform 12s linear; }
+        .slide.active .profile-image { transform: scale(1.02); }
 
         .product-section-title { font-size: 2.8rem; color: var(--text-main); font-weight: 700; margin-bottom: 40px; letter-spacing: 0.1em; transition: color var(--transition-speed);}
         .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; width: 90%; max-width: 1400px; }
@@ -157,8 +156,8 @@
         .img-shuttle { background-image: url('./img_shuttle.jpeg'); }
         .img-wingbend { background-image: url('./img_wingbend.jpg'); }
         .img-screw { background-image: url('./img_screw.jpeg'); }
-        .product-card-img { width: 100%; height: 100%; background-size: cover; background-position: center; transform: scale(1); transition: transform 12s ease-out; }
-        .slide.active .product-card-img { transform: scale(1.1); }
+        .product-card-img { width: 100%; height: 100%; background-size: cover; background-position: center; transform: scale(1.1); transition: transform 15s ease-out; }
+        .slide.active .product-card-img { transform: scale(1); }
         .product-info { flex: 1.2; padding: 30px; display: flex; flex-direction: column; justify-content: center; }
         .product-name { font-size: 1.8rem; font-weight: 700; color: var(--accent-color); margin-bottom: 10px; line-height: 1.2; transition: color var(--transition-speed);}
         .product-name span { font-size: 1rem; font-weight: 500; color: var(--text-muted); display: block; margin-top: 5px; }
@@ -170,16 +169,22 @@
         .contact-info { font-size: 1.6rem; color: var(--text-muted); line-height: 2; margin-bottom: 30px; }
         .website-url { font-size: 2.2rem; color: var(--accent-color); font-weight: 700; text-decoration: none; letter-spacing: 0.1em; display: inline-block; transition: color var(--transition-speed);}
         .qr-box { display: flex; flex-direction: column; align-items: center; }
-        .qr-image-wrapper { position: relative; margin-bottom: 15px; border-radius: 12px; box-shadow: 0 15px 30px rgba(0,0,0,0.1); border: 5px solid white; overflow: hidden; }
-        .qr-image { width: 220px; height: 220px; display: block; }
+        .qr-image-wrapper { position: relative; margin-bottom: 15px; border-radius: 12px; box-shadow: 0 15px 30px rgba(0,0,0,0.1); border: 5px solid white; overflow: hidden; background: white;}
+        .qr-image { width: 220px; height: 220px; display: block; mix-blend-mode: multiply;}
         .qr-scan-line { position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: rgba(43, 76, 155, 0.8); box-shadow: 0 0 15px 5px rgba(43, 76, 155, 0.4); animation: scan 2.5s ease-in-out infinite alternate; }
         @keyframes scan { 0% { top: 5%; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { top: 95%; opacity: 0; } }
         .qr-text { font-size: 1.2rem; font-weight: 700; color: var(--text-main); letter-spacing: 0.1em; background: rgba(0,0,0, 0.05); padding: 8px 20px; border-radius: 30px;}
     </style>
 </head>
-<body class="theme-day"> <div class="ambient-bg"></div>
+<body class="theme-day">
+
+    <div class="ambient-bg"></div>
     <div class="grid-overlay"></div>
     <div class="particles-container" id="particles"></div>
+
+    <div class="pause-indicator" id="pauseIndicator">
+        <span class="pause-icon"></span> 画面一時停止中 (Paused)
+    </div>
 
     <div class="smart-hub">
         <div class="widget-glass">
@@ -190,7 +195,6 @@
                 <span class="weather-city">YOKOHAMA</span>
             </div>
         </div>
-        
         <div class="widget-glass">
             <div class="clock-data">
                 <div class="greeting-text" id="greeting">こんにちは</div>
@@ -284,6 +288,13 @@
         </div>
     </section>
 
+    <div class="ticker-container">
+        <div class="ticker-text">
+            <span>[お知らせ]</span> 日本のものづくり精神で、高精度な製品をお届けします。 
+            <span>[NEWS]</span> 東京精密発條株式会社へようこそ。展示会ブースにお立ち寄りいただきありがとうございます。 
+            <span>[INNOVATION]</span> SPALCON - 切粉処理の新しいスタンダード。 
+        </div>
+    </div>
     <div class="progress-container">
         <div class="progress-bar" id="progressBar"></div>
     </div>
@@ -291,47 +302,76 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             
-            // --- 1. SLIDE LOGIC ---
+            // --- 1. SLIDE LOGIC & INTERACTIVE PAUSE ---
             const slides = document.querySelectorAll('.slide');
             const progressBar = document.getElementById('progressBar');
+            const pauseIndicator = document.getElementById('pauseIndicator');
             let currentSlideIndex = 0;
             const slideDurations = [6000, 10000, 12000, 8000];
+            
+            let slideTimer;
+            let isPaused = false;
+            let startTime, remainingTime;
 
-            function showNextSlide() {
-                slides[currentSlideIndex].classList.remove('active');
-                currentSlideIndex = (currentSlideIndex + 1) % slides.length;
-                slides[currentSlideIndex].classList.add('active');
-                
-                const duration = slideDurations[currentSlideIndex];
+            function startSlide(duration) {
                 progressBar.style.transition = 'none'; 
                 progressBar.style.width = '0%';
                 void progressBar.offsetWidth; 
                 progressBar.style.transition = `width ${duration}ms linear`;
                 progressBar.style.width = '100%'; 
 
-                setTimeout(showNextSlide, duration);
+                startTime = Date.now();
+                remainingTime = duration;
+
+                slideTimer = setTimeout(showNextSlide, duration);
             }
+
+            function showNextSlide() {
+                if(isPaused) return;
+                slides[currentSlideIndex].classList.remove('active');
+                currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+                slides[currentSlideIndex].classList.add('active');
+                startSlide(slideDurations[currentSlideIndex]);
+            }
+
+            // Inisialisasi Slide Pertama
             slides[currentSlideIndex].classList.add('active');
-            progressBar.style.transition = `width ${slideDurations[currentSlideIndex]}ms linear`;
-            progressBar.style.width = '100%';
-            setTimeout(showNextSlide, slideDurations[currentSlideIndex]);
+            startSlide(slideDurations[currentSlideIndex]);
+
+            // INTERACTIVE PAUSE (Tap/Klik di mana saja untuk Jeda)
+            document.body.addEventListener('mousedown', togglePause);
+            document.body.addEventListener('touchstart', togglePause);
+
+            function togglePause(e) {
+                if(e.type === 'touchstart') e.preventDefault();
+                
+                isPaused = !isPaused;
+                if (isPaused) {
+                    clearTimeout(slideTimer);
+                    let computedWidth = window.getComputedStyle(progressBar).width;
+                    progressBar.style.transition = 'none';
+                    progressBar.style.width = computedWidth; // Bekukan bar
+                    pauseIndicator.classList.add('show');
+                } else {
+                    remainingTime = remainingTime - (Date.now() - startTime);
+                    startSlide(remainingTime > 0 ? remainingTime : 1000);
+                    pauseIndicator.classList.remove('show');
+                }
+            }
 
             // --- 2. TIME, BILINGUAL DATE & THEME ENGINE ---
             function updateTimeAndTheme() {
                 const now = new Date();
                 const jstOptions = { timeZone: 'Asia/Tokyo' };
                 
-                // Set Jam (00:00)
                 const timeStr = new Intl.DateTimeFormat('ja-JP', { ...jstOptions, hour: '2-digit', minute: '2-digit', hour12: false }).format(now);
                 document.getElementById('clock').textContent = timeStr;
 
-                // Set Tanggal Dwibahasa (Contoh: WED | 水曜日)
                 const dateEn = new Intl.DateTimeFormat('en-US', { ...jstOptions, month: 'short', day: 'numeric' }).format(now).toUpperCase();
                 const dayEn = new Intl.DateTimeFormat('en-US', { ...jstOptions, weekday: 'short' }).format(now).toUpperCase();
                 const dayJa = new Intl.DateTimeFormat('ja-JP', { ...jstOptions, weekday: 'long' }).format(now);
                 document.getElementById('date').textContent = `${dateEn}, ${dayEn} | ${dayJa}`;
 
-                // Set Greeting & Theme Berdasarkan Jam Yokohama
                 const hour = parseInt(new Intl.DateTimeFormat('en-US', { ...jstOptions, hour: 'numeric', hour12: false }).format(now), 10);
                 const greetingElement = document.getElementById('greeting');
                 const body = document.body;
@@ -339,33 +379,30 @@
                 body.classList.remove('theme-day', 'theme-evening', 'theme-night');
 
                 if (hour >= 6 && hour < 16) {
-                    greetingElement.textContent = 'おはようございます'; // Pagi/Siang
+                    greetingElement.textContent = 'おはようございます'; 
                     body.classList.add('theme-day');
                 } else if (hour >= 16 && hour < 19) {
-                    greetingElement.textContent = 'こんにちは'; // Sore/Senja
+                    greetingElement.textContent = 'こんにちは'; 
                     body.classList.add('theme-evening');
                 } else {
-                    greetingElement.textContent = 'こんばんは'; // Malam
+                    greetingElement.textContent = 'こんばんは'; 
                     body.classList.add('theme-night');
                 }
             }
             setInterval(updateTimeAndTheme, 1000);
             updateTimeAndTheme();
 
-            // --- 3. REAL-TIME WEATHER (OPEN-METEO API - NO KEY NEEDED) ---
+            // --- 3. REAL-TIME WEATHER ---
             async function fetchWeather() {
                 try {
-                    // Koordinat Kota Yokohama
                     const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=35.4478&longitude=139.6425&current=temperature_2m,weather_code&timezone=Asia%2FTokyo');
                     const data = await res.json();
                     
                     const temp = Math.round(data.current.temperature_2m);
                     const code = data.current.weather_code;
                     
-                    let icon = '☀️';
-                    let desc = '晴れ'; // Cerah
+                    let icon = '☀️'; let desc = '晴れ'; 
 
-                    // Mapping WMO Weather Codes ke Ikon Animasi
                     if (code === 0) { icon = '☀️'; desc = '快晴'; }
                     else if (code >= 1 && code <= 3) { icon = '⛅'; desc = '曇り'; }
                     else if (code === 45 || code === 48) { icon = '🌫️'; desc = '霧'; }
@@ -379,12 +416,11 @@
                     document.getElementById('weather-desc').textContent = desc;
 
                 } catch (error) {
-                    console.error("Gagal mengambil data cuaca:", error);
                     document.getElementById('weather-desc').textContent = "Offline";
                 }
             }
             fetchWeather();
-            setInterval(fetchWeather, 1800000); // Update cuaca setiap 30 menit
+            setInterval(fetchWeather, 1800000); 
 
             // --- 4. ZEN PARTICLES ---
             const particlesContainer = document.getElementById('particles');
